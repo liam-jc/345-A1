@@ -13,33 +13,29 @@ class Player{
 
 
 class Card{
-        // string type;
     public:     
         int* ptr;
         static int typeNumber;
         string typeOfCard;
         void showCard();
         Card(); //default constructor
-        // Card(const Card &obj); //copy constructor
+        
+        // Card(const Card &obj); //TODO copy constructor
         // {
         //     int random;
         // };
         // void initialyze();
         // int rand;
         // string getType();
+
+        
         void play();
-        // {
-        //     void createOrder();
-        //     void toPlayerOrderList();
-        //     void returnToDeck();
-        // };
 };
 
 class Deck{
     public:
         int randomCardNumber;
         int numCardsInDeck;
-        // Card toReturn;
         void showDeck();
         Deck();
         std::__1::vector<Card> deckOfCards;

@@ -2,6 +2,7 @@
 #include<cstdlib>
 #include <string>
 #include <vector>
+#include <random>
 #include "Cards.h"
 
 using namespace std;
@@ -9,21 +10,14 @@ using namespace std;
 
 //********************************* PLAYER *********************************
         //A Player holds a Hand object
-        // Hand playerHand;
+        
         //default constructor
         Player::Player(){
-
         };
 
 //********************************* CARD *********************************
     //Card has a randomly assigned type at construction. 
     //Cards are used in Deck and Hand.
-
-    // string type = "aaaaaa";
-
-        // string Card::getType(){
-        //     return this->type;
-        // };
         
         string typeOfCard;
         int Card::typeNumber = 0;
@@ -50,14 +44,16 @@ using namespace std;
                 case 5  :
                     typeOfCard = "Diplomacy";
                     break;
-                default : //Optional
+                default :
                     typeOfCard = "PROBLEM";
             }
             
         };
 
-        //copy constructor
+        //TODO copy constructor
         // Card::Card(const Card &obj) { 
+                // Card newCard;
+                // newCard.typeOfCard = obj.typeOfCard;
         //     cout << "Copy constructor allocating ptr." << endl;
         //     ptr = new int;
         //     *ptr = *obj.ptr; // copy the value
@@ -66,9 +62,6 @@ using namespace std;
         void Card::showCard(){
             cout << "Card type is " << typeOfCard << endl;
         };
-        // void initialyze(){
-            
-        // };
         
         void Card::play(){
             void createOrder();
@@ -100,18 +93,22 @@ using namespace std;
             }
             
         };
-        // Card toReturn;
+
+         //draw() draws a Card at random from remaining Cards in Deck and places in a Player's Hand.
+        //Then removes chosen Card from Deck.
         int randomCardNumber=0;
         Card Deck::draw(){
-            srand(time(0));
-            randomCardNumber = rand()%numCardsInDeck;
+            std::random_device rd; //random number generator from slide 16 @ https://view.officeapps.live.com/op/view.aspx?src=http%3a%2f%2fvideo.ch9.ms%2fsessions%2fgonat%2f2013%2fSTLGN13rand.pptx
+            std::mt19937 mt(rd());
+            std::uniform_real_distribution<double> dist(1.0, deckOfCards.size());
+            randomCardNumber = dist(mt);
             cout << "randomCardNumber is " << randomCardNumber << endl; //for debugging
-            // Card toReturn = deckOfCards.at(randomCardNumber);
-            // deckOfCards.erase(randomCardNumber, randomCardNumber);
-            // return toReturn;
-            return deckOfCards.at(randomCardNumber);
+            Card toReturn; 
+            toReturn.typeOfCard = deckOfCards.at(randomCardNumber).typeOfCard;
+            deckOfCards.erase( std::next(deckOfCards.begin(), randomCardNumber));
+            return toReturn;
         };
-        //draw() draws a Card at random from remaining Cards in Deck and places in a Player's Hand.
+       
 
 
 //********************************* HAND *********************************
@@ -119,8 +116,7 @@ using namespace std;
         std::__1::vector<Card> handOfCards;
 
         //default constructor
-        Hand::Hand(){
-            
+        Hand::Hand(){       
         };
 
         void Hand::showHand(){
@@ -133,4 +129,3 @@ using namespace std;
         void Hand::addCardToHand(Card toAdd){
             handOfCards.push_back(toAdd);
         };
-        // Card[] handCards;
