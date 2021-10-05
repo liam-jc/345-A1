@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "345-Fall-2021/Cards-Folder"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"iostream": "cpp",
+			"ostream": "cpp"
+		}
+	}
+}
