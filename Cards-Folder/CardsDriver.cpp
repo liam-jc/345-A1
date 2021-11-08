@@ -47,7 +47,7 @@ int main(){
     //show cards remaining in deck
     cout << deck1;
 
-    //*****end demo A1*****
+    //*****end*****
 
     
     //*****debugging area*****
