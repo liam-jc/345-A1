@@ -7,7 +7,7 @@
 #include <string>
 #include <vector>
  #include "Orders.h"
-//  #include "Player.h"
+ #include "Player.h"
 
 using namespace std;
 
@@ -21,7 +21,7 @@ class Card{
         Card(int, Card*);
         Card(const Card &inputCard); //copy costructor
         friend ostream& operator << (ostream& outputStream, const Card& c); //outstream overload
-        // Orders play(); //returns an order to be added to a Player's OrdersList, ie. Player p; Card c; p.issueOrder(c.play("orderType"));
+        // void play(Player p, Deck d); //adds order from this Card to Player's OrdersList, removes Card from Player's Hand and returns card to deck
         ~Card(); //destructor
 };
 
@@ -42,6 +42,7 @@ class Hand{
         Hand();
         Hand(const Hand &inputHand); // copy constructor
         void addCardToHand(Card toAdd);
+        void removeCardFromHand(Card toRemove);
         std::__1::vector<Card> handOfCards;
         friend ostream& operator << (ostream& outputStream, const Hand& h); //outstream overload
         ~Hand(); //destructor
