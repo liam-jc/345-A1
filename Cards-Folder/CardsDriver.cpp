@@ -1,25 +1,48 @@
 #include "Cards.h"
 // #include "Orders.h"
-// #include "Player.h"
+#include "Player.h"
 
 using namespace std;
 
 int main(){
-    //*****demo A1*****
+    // //*****demo A1*****
+    
+    // //create and show a deck
+    // Deck deck1;
+    // cout << deck1;
+
+    // //create a hand
+    // Hand hand1;
+
+    // //draw cards to hand from deck
+    // hand1.addCardToHand(deck1.draw());
+    // hand1.addCardToHand(deck1.draw());
+    // hand1.addCardToHand(deck1.draw());
+    // //show hand
+    // cout << hand1;
+
+    // //show cards remaining in deck
+    // cout << deck1;
+
+    // //*****end demo A1*****
+
+
+    //*****using Cards with a Player*****
     
     //create and show a deck
     Deck deck1;
     cout << deck1;
 
-    //create a hand
-    Hand hand1;
+    //create a player
+    Player p;
 
-    //draw cards to hand from deck
-    hand1.addCardToHand(deck1.draw());
-    hand1.addCardToHand(deck1.draw());
-    hand1.addCardToHand(deck1.draw());
-    //show hand
-    cout << hand1;
+    //draw cards to Player's hand from deck
+    (*(p.hand)).addCardToHand(deck1.draw());
+    (*(p.hand)).addCardToHand(deck1.draw());
+    (*(p.hand)).addCardToHand(deck1.draw());
+
+    //show Player's hand
+    cout << "\n ***Player p's hand is:***\n" << *(p.hand);
 
     //show cards remaining in deck
     cout << deck1;
