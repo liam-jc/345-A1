@@ -11,7 +11,7 @@ class CommandProcessor{
         // readCommand: 
         // •gets commands from the console as a string,
         // •stores the command internally in a collection of Command objects using saveCommand()
-        // •provides a public getComman() to other objects such as the GameEngine or the Player
+        // •provides a public getCommand() to other objects such as the GameEngine or the Player
         void readCommand(Command inputCommand); 
 
     public:     
