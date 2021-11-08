@@ -51,12 +51,15 @@ using namespace std;
             return outputStream;
         };
 
-        //play() returns an order to be added to a Player's OrdersList, ie. Player p; Card c; p.issueOrder(c.play("orderType"));
-        // Orders Card::play(){   
-        //     Orders(this.typeOfCard);
-        //      createOrder();
-        //     void toPlayerOrderList();
-        //     void returnToDeck();
+        //play() returns an order to be added to a Player's OrdersList
+        //then returns Card to deck, and removes Card from hand.
+        // void Card::play(Player p, Deck d){   
+        //     Orders ord; //create an Order using the Card object's type member
+        //     ord.order_type = (*this).typeOfCard;
+        //     // ord = Orders((*this).typeOfCard); //alternate version using Orders(string s) constructor
+        //     d.deckOfCards.push_back(*this); //put card in deck
+        //     p.issueOrder(ord.order_type); //add card order type to player's OrderList
+        //     p.hand->removeCardFromHand(*this); //remove card from player's Hand
         // };
 
         //destructor
@@ -147,6 +150,14 @@ using namespace std;
 
         void Hand::addCardToHand(Card toAdd){
             handOfCards.push_back(toAdd);
+        };
+
+        void Hand::removeCardFromHand(Card toRemove){
+            for (int i = 0; i<(*this).handOfCards.size(); i++){ //remove card from player's Hand by searching hand
+                if (toRemove.typeOfCard == (*this).handOfCards.at(i).typeOfCard){
+                    (*this).handOfCards.erase((*this).handOfCards.begin()+i);
+                }
+            }
         };
 
         //destructor
