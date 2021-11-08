@@ -4,20 +4,11 @@
 #include <vector>
 #include <random>
 #include "Cards.h"
-
 using namespace std;
 
-
-//********************************* PLAYER *********************************
-        //A Player holds a Hand object
-        
-        //default constructor
-        Player::Player(){
-        };
-
 //********************************* CARD *********************************
-    //Card has a randomly assigned type at construction. 
-    //Cards are used in Deck and Hand.
+//Card has a randomly assigned type at construction. 
+//Cards are used in Deck and Hand.
         
         string typeOfCard;
         int Card::typeNumber = 0;
@@ -46,55 +37,66 @@ using namespace std;
                     break;
                 default :
                     typeOfCard = "PROBLEM";
-            }
-            
+            }      
         };
 
-        //TODO copy constructor
-        // Card::Card(const Card &obj) { 
-                // Card newCard;
-                // newCard.typeOfCard = obj.typeOfCard;
-        //     cout << "Copy constructor allocating ptr." << endl;
-        //     ptr = new int;
-        //     *ptr = *obj.ptr; // copy the value
-        // }
-
-        void Card::showCard(){
-            cout << "Card type is " << typeOfCard << endl;
+        //copy constructor
+        Card::Card(const Card &inputCard){ 
+            this->typeOfCard = inputCard.typeOfCard;
+            // cout << "\nCard copied." << endl; //for debugging
         };
         
+        ostream& operator << (ostream& outputStream, const Card& c){
+            outputStream << "Card with type " << c.typeOfCard << endl;
+            return outputStream;
+        };
+
         void Card::play(){
             void createOrder();
             void toPlayerOrderList();
             void returnToDeck();
         };
 
+        //destructor
+        Card::~Card(){}; 
+
 
 //********************************* DECK *********************************
-    //A Deck contains a finite collection of Cards.
+//A Deck contains a finite collection of Cards.
     
         int numCardsInDeck;
-        std::__1::vector<Card> deckOfCards;
+        std::__1::vector<Card*> deckOfCards;
+
         //default constructor
         Deck::Deck(){
             //calls Card constructor, creates Deck of random Cards.
-            cout << "How many cards in a deck? " << endl;
+            cout << "\n*****New Deck created.*****" << endl;
+            cout << "How many cards in this deck? " << endl;
             cin >> numCardsInDeck;
             for (int i = 0; i < numCardsInDeck; i++){
-                Card cardInDeck;
-                deckOfCards.push_back(cardInDeck);
+                Card *cardInDeck = new Card();
+                deckOfCards.push_back(*cardInDeck);
             }
-
-        };
-        void Deck::showDeck(){
-            cout << "Deck contains: " << endl;
-            for (int i = 0; i < deckOfCards.size(); i++){
-                deckOfCards.at(i).showCard();
-            }
-            
+            cout << "Done creating deck" << endl;
         };
 
-         //draw() draws a Card at random from remaining Cards in Deck and places in a Player's Hand.
+        //copy constructor
+        Deck::Deck(const Deck &inputDeck){ 
+            this->numCardsInDeck = inputDeck.numCardsInDeck;
+            this->deckOfCards = inputDeck.deckOfCards;
+            cout << "\nDeck copied." << endl;
+        };
+
+        //outstream operator overloading
+        ostream& operator << (ostream& outputStream, const Deck& d){
+            outputStream << "\n*****Deck contains:*****" << endl;
+            for (int i = 0; i < d.deckOfCards.size(); i++){
+                outputStream << d.deckOfCards.at(i);
+            } 
+            return outputStream;
+        };
+
+        //draw() draws a Card at random from remaining Cards in Deck and places in a Player's Hand.
         //Then removes chosen Card from Deck.
         int randomCardNumber=0;
         Card Deck::draw(){
@@ -102,30 +104,48 @@ using namespace std;
             std::mt19937 mt(rd());
             std::uniform_real_distribution<double> dist(1.0, deckOfCards.size());
             randomCardNumber = dist(mt);
-            cout << "randomCardNumber is " << randomCardNumber << endl; //for debugging
+            // cout << "randomCardNumber is " << randomCardNumber << endl; //for debugging
             Card toReturn; 
-            toReturn.typeOfCard = deckOfCards.at(randomCardNumber).typeOfCard;
-            deckOfCards.erase( std::next(deckOfCards.begin(), randomCardNumber));
+            toReturn.typeOfCard = deckOfCards.at(randomCardNumber).typeOfCard; //draw random card
+            cout << "\nUsing Deck::draw(), " << toReturn.typeOfCard << " Card drawn from deck." << endl;
+            deckOfCards.erase( std::next(deckOfCards.begin(), randomCardNumber)); //erase drawn card from deck
             return toReturn;
         };
        
-
+        //destructor
+        Deck::~Deck(){}; 
 
 //********************************* HAND *********************************
-    //A Hand contains a finite collection of Cards.
+//A Hand contains a finite collection of Cards.
         std::__1::vector<Card> handOfCards;
 
         //default constructor
         Hand::Hand(){       
+            cout << "\n*****New Hand created.*****" << endl;
         };
 
-        void Hand::showHand(){
-            cout << "Hand contains: " << endl;
-            for (int i = 0; i < handOfCards.size(); i++){
-                handOfCards.at(i).showCard();
+        //copy constructor
+        Hand::Hand(const Hand &inputHand){ 
+            this->handOfCards = inputHand.handOfCards;
+            cout << "\nHand copied." << endl;
+        };
+        
+        //outstream operator overloading
+        ostream& operator << (ostream& outputStream, const Hand& h){ 
+            outputStream << "\n*****Hand contains:*****" << endl; 
+            if (h.handOfCards.size() == 0){
+                outputStream << "This hand is empty!" << endl;
+                return outputStream;
             }
+            for (int i = 0; i < h.handOfCards.size(); i++){
+                cout << h.handOfCards.at(i);
+            }
+            return outputStream;
         };
 
         void Hand::addCardToHand(Card toAdd){
             handOfCards.push_back(toAdd);
         };
+
+        //destructor
+        Hand::~Hand(){}; 
