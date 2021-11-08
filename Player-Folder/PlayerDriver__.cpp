@@ -4,7 +4,8 @@ using namespace std;
 
 int main(){
     Player player1("Name");
-    cout << "The player's name is: " << player1.name << endl;
-    cout << "The player's hand is: " << *(player1.hand) << endl;
+    cout << "The player's name (called by member) is: " << player1.name << endl;
+    cout << "\nThe player's hand (called by member) is: " << *(player1.hand) << endl;
+    cout << "Calling the player by ostream is: \n" << player1;
     return 0;
 }
