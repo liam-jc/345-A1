@@ -1,9 +1,12 @@
+#ifndef Player_h
+#define Player_h
+
 #pragma once
-#include "iostream";
-#include "vector";
-#include "string";
+#include <iostream>
+#include <vector>
+#include <string>
 #include "Cards.h"
-#include "Map.h";
+#include "Map.h"
 #include "Orders.h"
 
 using namespace std;
@@ -22,14 +25,16 @@ public:
 	/*-----------Constructors-------------*/
 	Player();
 	Player(string name);
-	Player(string name, vector<Territory*> territories, Hand* hand, OrdersList* orders);
+	Player(vector<Territory*> territories, Hand* hand, OrdersList* orders, string name);
 	Player(const Player& toCopy);
 
 	/*------------Destructor----------------*/
 	~Player();
 
 	/*------------Methods-------------------*/
-	void toAttack();
-	void toDefend();
-	void issueOrder();
+	vector<Territory*> toAttack();
+	vector<Territory*> toDefend();
+	void issueOrder(string orderToAdd);
 };
+
+#endif
