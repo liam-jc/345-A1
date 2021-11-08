@@ -51,11 +51,13 @@ using namespace std;
             return outputStream;
         };
 
-        void Card::play(){
-            void createOrder();
-            void toPlayerOrderList();
-            void returnToDeck();
-        };
+        //play() returns an order to be added to a Player's OrdersList, ie. Player p; Card c; p.issueOrder(c.play("orderType"));
+        // Orders Card::play(){   
+        //     Orders(this.typeOfCard);
+        //      createOrder();
+        //     void toPlayerOrderList();
+        //     void returnToDeck();
+        // };
 
         //destructor
         Card::~Card(){}; 
