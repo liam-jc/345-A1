@@ -61,6 +61,7 @@ using namespace std;
         //     p.issueOrder(ord.order_type); //add card order type to player's OrderList
         //     p.hand->removeCardFromHand(*this); //remove card from player's Hand
         // };
+        //^this doesn't work because Player.h includes Cards.h, so using Player in Card causes recursive definition.
 
         //destructor
         Card::~Card(){}; 
