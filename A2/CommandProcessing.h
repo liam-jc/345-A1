@@ -1,3 +1,6 @@
+#ifndef CommandProcessing_h
+#define CommandProcessing_h
+
 #pragma once
 #include <iostream>
 #include <cstdlib>
@@ -69,3 +72,5 @@ class FileLineReader{
     friend ostream& operator << (ostream& outputStream, const FileLineReader& c); //outstream overload
     ~FileLineReader(); //destructor
 };
+
+#endif
