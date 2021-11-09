@@ -21,7 +21,7 @@
 
         void CommandProcessor::getCommand(){
             readCommand();
-        }
+        };
 
 
         //destructor
