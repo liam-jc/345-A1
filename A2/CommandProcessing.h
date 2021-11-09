@@ -12,24 +12,27 @@ class CommandProcessor{
         // •gets commands from the console as a string,
         // •stores the command internally in a collection of Command objects using saveCommand()
         // •provides a public getCommand() to other objects such as the GameEngine or the Player
-        void readCommand(Command inputCommand); 
+        void readCommand(); 
+        void saveCommand(string s);
 
     public:     
+        vector<Command> commandCollection;
         string commandStr;
         CommandProcessor(); //default constructor
         CommandProcessor(const CommandProcessor &commandProcessorToCopy); //copy costructor
         friend ostream& operator << (ostream& outputStream, const CommandProcessor& c); //outstream overload
-        void getCommand(Command inputCommand);
-        void saveEffect(Command inputCommand);
+        void getCommand();
+        //void saveEffect(Command inputCommand);
         bool validate(Command toValidate);
         ~CommandProcessor(); //destructor
 };
 
 class Command{
     private:
-    void saveEffect();
+    
 
     public:
+    void saveEffect(string s);
     string command;
     string effect;
     Command(); //default constructor
@@ -44,7 +47,7 @@ class FileCommandProcessorAdapter:CommandProcessor{
         // •gets commands from the console as a string,
         // •stores the command internally in a collection of Command objects using saveCommand()
         // •provides a public getComman() to other objects such as the GameEngine or the Player
-        void readCommand(Command inputCommand); 
+        void readCommand(); 
 
     public:     
         string commandStr;
@@ -52,8 +55,7 @@ class FileCommandProcessorAdapter:CommandProcessor{
         FileCommandProcessorAdapter(); //default constructor
         FileCommandProcessorAdapter(const FileCommandProcessorAdapter &commandProcessorToCopy); //copy costructor
         friend ostream& operator << (ostream& outputStream, const FileCommandProcessorAdapter& c); //outstream overload
-        void getCommand(Command inputCommand);
-        void getCommand(Command inputCommand);
+        void getCommand();
         ~FileCommandProcessorAdapter(); //destructor
 };
 
