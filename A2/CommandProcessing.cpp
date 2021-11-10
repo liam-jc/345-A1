@@ -117,11 +117,13 @@ using namespace std;
 
         void FileCommandProcessorAdapter::readCommand(){
             // commandStr = (*flr).readLineFromFile();
+            cout << "readCommand() used." << endl; //for debugging
             commandStr = flr.readLineFromFile();
             saveCommand(commandStr);
         };
 
          void FileCommandProcessorAdapter::saveCommand(string s){
+            cout << "saveCommand() used with " << s << endl; //for debugging
             Command c;
             c.command = s; //assign command type from input
             c.saveEffect(s);
@@ -160,6 +162,7 @@ using namespace std;
                         lineNumber++;
                         return tp;   //print the data of the string
                     }
+                    iteration++;
                 }
                 newfile.close();   //close the file object.
             }
