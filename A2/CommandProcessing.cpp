@@ -31,6 +31,23 @@ using namespace std;
 
         };
 
+        //copy constructor
+        CommandProcessor::CommandProcessor(const CommandProcessor &inputCP){ 
+            this->commandCollection = inputCP.commandCollection;
+            this->commandStr = inputCP.commandStr;
+            // cout << "\nCommandProcessor copied." << endl; //for debugging
+        };
+        
+        //ostream overload
+        ostream& operator << (ostream& outputStream, const CommandProcessor& c){
+            outputStream << "CommandProcessor has: \ncommandCollection:" << endl;
+            for (int i=0; i<c.commandCollection.size(); i++){ //show commands
+                outputStream << c.commandCollection.at(i) << endl;
+            }
+            outputStream << "commandStr: " << c.commandStr << endl;
+            return outputStream;
+        };
+
 
         //destructor
         CommandProcessor::~CommandProcessor(){};
@@ -59,10 +76,14 @@ using namespace std;
             if (s == "quit"){
                 this->effect = "Quit game, exit program.";
             }
+            if (s != "loadmap *" && s != "validatemap" && s != "replay" && s != "gamestart" && s != "replay" && s != "quit"){
+                //case of invalid input should save a record of this in the effect variable
+                this->effect = "Invalid command entered. No effect on game.";
+            }
         };
 
 
-         //copy constructor
+        //copy constructor
         Command::Command(const Command &inputCommand){ 
             this->command = inputCommand.command;
             this->effect = inputCommand.effect;
@@ -84,6 +105,16 @@ using namespace std;
 
 
 
+        //copy constructor
+        FileLineReader::FileLineReader(const FileLineReader &input){ 
+            //no members
+        };
+        
+        //ostream overload
+        ostream& operator << (ostream& outputStream, const FileLineReader& f){
+            outputStream << "FileLineReader ostream." << endl;
+            return outputStream;
+        };  
 
         //destructor
         FileLineReader::~FileLineReader(){};
