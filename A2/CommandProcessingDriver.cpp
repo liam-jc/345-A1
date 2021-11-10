@@ -22,6 +22,8 @@ int main(){
     else if (userInput == "-file"){ //file option uses FileCommandProcessorAdapter
         FileCommandProcessorAdapter fcpa;
         fcpa.getCommand(); //request command input from file
+        fcpa.getCommand(); //request command input from file
+        fcpa.getCommand(); //request command input from file
         for (int i=0; i<fcpa.commandCollection.size(); i++){ //show commands
             cout << fcpa.commandCollection.at(i);
         }
