@@ -1,6 +1,9 @@
 #include "CommandProcessing.h"
+// #include "GameEngine.h"
 
 using namespace std;
+
+// GameEngine &ge1;
 
 
 //********CommandProcessor**********
@@ -26,9 +29,13 @@ using namespace std;
             readCommand();
         };
 
+        // int CommandProcessor::getGameEngineState(GameEngine &ge1){
+        //     // return ge1.state;
+        //     return ge1.state;
+        // };
 
         bool CommandProcessor::validate(Command toValidate){
-
+            // cout << "GameEngine current state is: " << &ge1.state;
         };
 
         //copy constructor
@@ -58,13 +65,13 @@ using namespace std;
 
         void Command::saveEffect(string s){
             //assign effect corresponding to input
-            if (s == "loadmap *"){ //TODO: replace * with regex 
+            if (s == "loadmap_*"){ //TODO: replace * with regex 
                 this->effect = "Load map from file, transition to maploaded state.";
             }
             if (s == "validatemap"){
                 this->effect = "Validate map, transition to mapvalidated state.";
             }
-            if (s == "addplayer *"){ //TODO: replace * with regex 
+            if (s == "addplayer_*"){ //TODO: replace * with regex 
                 this->effect = "Adds a player, transition to playersadded state.";
             }
             if (s == "gamestart"){
@@ -76,7 +83,7 @@ using namespace std;
             if (s == "quit"){
                 this->effect = "Quit game, exit program.";
             }
-            if (s != "loadmap *" && s != "validatemap" && s != "replay" && s != "gamestart" && s != "replay" && s != "quit"){
+            if (s != "loadmap_*" && s != "validatemap" && s != "addplayer_*" && s != "gamestart" && s != "replay" && s != "quit"){
                 //case of invalid input should save a record of this in the effect variable
                 this->effect = "Invalid command entered. No effect on game.";
             }
@@ -100,10 +107,59 @@ using namespace std;
         //destructor
         Command::~Command(){};
 
-//*******FileLineReader********
-        FileLineReader::FileLineReader(){} //default constructor
 
+//***********FileCommandProcessorAdapter**************
+        //default constructor
+        FileCommandProcessorAdapter::FileCommandProcessorAdapter():CommandProcessor(){
+            // FileLineReader flr;
+        }; 
 
+        void FileCommandProcessorAdapter::readCommand(){
+            // commandStr = (*flr).readLineFromFile();
+            commandStr = flr.readLineFromFile();
+            saveCommand(commandStr);
+        };
+
+         void FileCommandProcessorAdapter::saveCommand(string s){
+            Command c;
+            c.command = s; //assign command type from input
+            c.saveEffect(s);
+            this->commandCollection.push_back(c); //save the command to collection
+        };
+
+        void FileCommandProcessorAdapter::getCommand(){
+            readCommand();
+        };
+
+       FileCommandProcessorAdapter::~FileCommandProcessorAdapter(){}; //destructor
+
+//************FileLineReader**************************
+        static int lineNumber = 0;
+        // fstream newfile;
+        FileLineReader::FileLineReader(){ //default constructor
+            cout << "FileLineReader created." << endl;       
+        }; 
+
+        string FileLineReader::readLineFromFile(){
+            cout << "Specify filename.txt" << endl;
+            string filename;
+            cin >> filename;
+            fstream newfile;
+            newfile.open("\"" + filename + "\"",ios::in); //open a file to perform read operation using file object.
+                                                            //may need path/filename to work.
+            if (newfile.is_open()){   //checking whether the file is open
+                string tp;
+                int iteration = 0;
+                while(getline(newfile, tp)){  //read data from file object and put it into string.
+                    if (lineNumber == iteration){ //will only return next unread line from file
+                        lineNumber++;
+                        return tp;   //print the data of the string
+                    }
+                }
+                newfile.close();   //close the file object.
+            }
+            return "";
+        };
 
         //copy constructor
         FileLineReader::FileLineReader(const FileLineReader &input){ 
