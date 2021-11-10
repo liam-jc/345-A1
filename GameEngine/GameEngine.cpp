@@ -25,6 +25,9 @@ void GameEngine::Start(){
     cout<< "Welcome to play Warzone" << endl;
     cout<< "please enter (start) to play the game" << endl;
     cout<< "otherwise will keep this info untll you enter start!";
+    // cp.getCommand(); //prompts user for commands, stores in collection
+    // input = cp.commandCollection.at(0).command; //accesses first command given
+    // cp.commandCollection.pop_back(); //removes command from collection
     cin >> this->input;
     if (input == "start"){
         state = 1;
@@ -33,12 +36,14 @@ void GameEngine::Start(){
 
 void GameEngine::MapLoaded(){
     cout<< "Would you like to load the map?" << endl;
-    cout<< "please enter (load) to load the map" << endl;
+    cout<< "please enter (loadmap_*) to load the map" << endl;
     cp.getCommand(); //prompts user for commands, stores in collection
+    // cout << cp.commandCollection.at(0).command; //****for debugging
     input = cp.commandCollection.at(0).command; //accesses first command given
+    // cout << "input is: " << input; //****for debugging
     cp.commandCollection.pop_back(); //removes command from collection
     //cin >> this->input; //replaced by CommandProcessor.getCommand()
-    if (input == "loadmap *"){// TODO: replace * with regex
+    if (input == "loadmap_*"){// TODO: replace * with regex
         cout<< "Map loading... will you validate the map?" << endl;
         cout<< "Enter (yes) for load a new map, enter (validated) for validated the map.";
         cin >> this->input;
@@ -62,17 +67,17 @@ void GameEngine::MapValidated(){
 
 void GameEngine::PlayersAdded(){
     cout<<"Would You like to add players?" <<endl;
-    cout<<"please enter (add) to add player" <<endl;
+    cout<<"please enter (addplayer_*) to add player" <<endl;
     cp.getCommand(); //prompts user for commands, stores in collection
     input = cp.commandCollection.at(0).command; //accesses first command given
     cp.commandCollection.pop_back(); //removes command from collection
     //cin >> this->input; //replaced by CommandProcessor.getCommand()
-    if (input == "addplayer *"){ //TODO: replace * with regex
+    if (input == "addplayer_*"){ //TODO: replace * with regex
         cout << "player has been added!" << endl;
         cout << "would you like to add other one?" << endl;
-        cout << "enter (addplayer *) for add other one, enter (gamestart) to start game with current players.";
+        cout << "enter (addplayer_*) for add other one, enter (gamestart) to start game with current players.";
         cin >> this->input;
-        if (input == "addplayer *"){ //TODO: replace * with regex
+        if (input == "addplayer_*"){ //TODO: replace * with regex
             cout << "Add other player!" << endl;
             state = 3;
         }
@@ -89,7 +94,7 @@ void GameEngine::AssignReinforcement(){
     cout << "Please enter (yes) for assign reinforcement" << endl;
     cin >> this->input;
     if (input == "yes"){
-        cout << "Assignd" << endl;
+        cout << "Assigned" << endl;
         state = 5;
     }
 }
