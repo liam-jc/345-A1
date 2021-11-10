@@ -1,9 +1,12 @@
 #include "CommandProcessing.h"
 
-
+using namespace std;
 
 
 //********CommandProcessor**********
+        //CommandProcessor has a collection of Commands
+        vector<Command> commandCollection;
+
         CommandProcessor::CommandProcessor(){} //default constructor
 
         void CommandProcessor::saveCommand(string s){
@@ -21,6 +24,11 @@
 
         void CommandProcessor::getCommand(){
             readCommand();
+        };
+
+
+        bool CommandProcessor::validate(Command toValidate){
+
         };
 
 
@@ -53,6 +61,20 @@
             }
         };
 
+
+         //copy constructor
+        Command::Command(const Command &inputCommand){ 
+            this->command = inputCommand.command;
+            this->effect = inputCommand.effect;
+            // cout << "\nCommand copied." << endl; //for debugging
+        };
+        
+        //ostream overload
+        ostream& operator << (ostream& outputStream, const Command& c){
+            outputStream << "Command has: \ncommand:" << c.command << endl;
+            outputStream << "effect: " << c.effect << endl;
+            return outputStream;
+        };
 
         //destructor
         Command::~Command(){};
