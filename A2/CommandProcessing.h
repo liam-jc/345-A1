@@ -9,6 +9,7 @@
 
 using namespace std;
 
+class Command;
 class CommandProcessor{
     private:      
         // readCommand: 
@@ -44,23 +45,24 @@ class Command{
     ~Command(); //destructor
 };
 
-class FileCommandProcessorAdapter:CommandProcessor{
-        private:      
-        // readCommand: 
-        // •gets commands from the console as a string,
-        // •stores the command internally in a collection of Command objects using saveCommand()
-        // •provides a public getComman() to other objects such as the GameEngine or the Player
-        void readCommand(); 
+// class FileLineReader;
+// class FileCommandProcessorAdapter:CommandProcessor{
+//     private:      
+//         // readCommand: 
+//         // •gets commands from the console as a string,
+//         // •stores the command internally in a collection of Command objects using saveCommand()
+//         // •provides a public getComman() to other objects such as the GameEngine or the Player
+//         void readCommand(); 
 
-    public:     
-        string commandStr;
-        FileLineReader flr;
-        FileCommandProcessorAdapter(); //default constructor
-        FileCommandProcessorAdapter(const FileCommandProcessorAdapter &commandProcessorToCopy); //copy costructor
-        friend ostream& operator << (ostream& outputStream, const FileCommandProcessorAdapter& c); //outstream overload
-        void getCommand();
-        ~FileCommandProcessorAdapter(); //destructor
-};
+//     public:     
+//         string commandStr;
+//         FileLineReader flr;
+//         FileCommandProcessorAdapter(); //default constructor
+//         FileCommandProcessorAdapter(const FileCommandProcessorAdapter &commandProcessorToCopy); //copy costructor
+//         friend ostream& operator << (ostream& outputStream, const FileCommandProcessorAdapter& c); //outstream overload
+//         void getCommand();
+//         ~FileCommandProcessorAdapter(); //destructor
+// };
 
 class FileLineReader{
     private:
