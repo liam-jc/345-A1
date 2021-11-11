@@ -63,6 +63,8 @@ class GameEngine{
 
     //Assignment 2:
     void StartUpPhase();
+    Map mainMap;
+    
 
 };
 

@@ -7,6 +7,11 @@
 #include <regex>
 #include "GameEngine.h"
 
+
+
+
+
+
 GameEngine::GameEngine() : input (""), state(0){
     
 }
@@ -55,7 +60,9 @@ void GameEngine::MapLoaded(){
     cp.commandCollection.pop_back(); //removes command from collection
     //cin >> this->input; //replaced by CommandProcessor.getCommand()
     if (regex_match(input, regex("(loadmap )(.*).map"))){
-        MapLoader ml(input); //GameEngine uses Map for loadmap in StartUpPhase()
+        cout<<input<<endl;
+        MapLoader ml(input.substr(8,input.length()-1)); //GameEngine uses Map for loadmap in StartUpPhase()
+        this->mainMap=ml.mainMap;
         cout<< "Map loading... will you validate the map?" << endl;
         cout<< "Enter (yes) for load a new map, enter (validated) for validated the map.";
         cin >> this->input;
@@ -73,6 +80,7 @@ void GameEngine::MapLoaded(){
 }
 
 void GameEngine::MapValidated(){
+    cout<<this->mainMap.isAValidMap()<<endl;
     cout<< "Map has been validated" << endl;
     state = 3;
 }
@@ -151,7 +159,7 @@ void GameEngine::ExecuteOrders(){
 }
 
 void GameEngine::Win(){
-    cout << "Your enermy has beed defeated, You won!" << endl;
+    cout << "Your enemy has beed defeated, You won!" << endl;
     cout << "Do you want to play again ?(new game)" << endl;
     cout << "enter (replay) to play again, or (quit) to quit." << endl;
     cp.getCommand(); //prompts user for commands, stores in collection
