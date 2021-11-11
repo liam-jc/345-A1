@@ -4,11 +4,16 @@
 #include <cstdlib>
 #include <string>
 #include <sstream>
+#include <regex>
 #include "GameEngine.h"
 
 GameEngine::GameEngine() : input (""), state(0){
     
 }
+
+// friend int GameEngine::getState(){
+//     return this->state;
+// };
 
 GameEngine::GameEngine(const GameEngine& GE){
     state = GE.state;
@@ -20,6 +25,12 @@ GameEngine& GameEngine::operator=(const GameEngine& GE) {
     input = GE.input;
     return *this;
 }
+
+//ostream overload
+// ostream& operator << (ostream& outputStream, const GameEngine& c){
+//     outputStream << this->state;
+//     return outputStream;
+// };
 
 void GameEngine::Start(){
     cout<< "Welcome to play Warzone" << endl;
@@ -36,14 +47,15 @@ void GameEngine::Start(){
 
 void GameEngine::MapLoaded(){
     cout<< "Would you like to load the map?" << endl;
-    cout<< "please enter (loadmap_*) to load the map" << endl;
+    cout<< "Please load a map by entering ( loadmap filename.map)" << endl;
     cp.getCommand(); //prompts user for commands, stores in collection
     // cout << cp.commandCollection.at(0).command; //****for debugging
     input = cp.commandCollection.at(0).command; //accesses first command given
     // cout << "input is: " << input; //****for debugging
     cp.commandCollection.pop_back(); //removes command from collection
     //cin >> this->input; //replaced by CommandProcessor.getCommand()
-    if (input == "loadmap_*"){// TODO: replace * with regex
+    if (regex_match(input, regex("(loadmap )(.*).map"))){
+        MapLoader ml(input); //GameEngine uses Map for loadmap in StartUpPhase()
         cout<< "Map loading... will you validate the map?" << endl;
         cout<< "Enter (yes) for load a new map, enter (validated) for validated the map.";
         cin >> this->input;
@@ -157,7 +169,8 @@ void GameEngine::Win(){
     }
 }
 
-void GameEngine::Loop(){
+//Assignment 2 Part 2:
+void GameEngine::StartUpPhase(){
     while(state == 0){
         Start();
         while (state == 1){
@@ -186,5 +199,24 @@ void GameEngine::Loop(){
 
 }
 
-//Assignment 2:
-void GameEngine::startupPhase(){};
+// //Assignment 2 Part 2:
+// void GameEngine::StartUpPhase(){ //this takes the place of Loop()
+//     cout<< "Please load a map by entering (loadmap filename.map)" << endl;
+//     cp.getCommand(); //prompts user for commands, stores in collection
+//     input = cp.commandCollection.at(0).command; //accesses first command given
+//     cp.commandCollection.pop_back(); //removes command from collection
+//     //cin >> this->input; //replaced by CommandProcessor.getCommand()
+//     if (regex_match(input, regex("(loadmap )(.*)"))){
+//         MapLoader ml(input); //GameEngine uses Map for loadmap in StartUpPhase()
+//     }
+//     else if(input == "validatemap"){
+
+//     }
+//     else if(regex_match(input, regex("(addplayer )(.*)"))){
+
+//     }
+//     else if(input == "start"){
+        
+//     }
+
+// }
