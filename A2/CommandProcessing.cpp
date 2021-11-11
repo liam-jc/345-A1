@@ -21,7 +21,9 @@ using namespace std;
 
         void CommandProcessor::readCommand(){
             cout << "Please input a command." << endl;
-            cin >> this->commandStr;
+            cin.ignore(); //needed to use cin in getline() after using "cin <<" previously
+            getline(cin, commandStr); //to include whitespace in string
+            cout << "commandStr is: " << commandStr << endl;
             saveCommand(commandStr);
         };
 
@@ -66,13 +68,13 @@ using namespace std;
 
         void Command::saveEffect(string s){
             //assign effect corresponding to input
-            if (s == "loadmap_*"){ //TODO: replace * with regex 
+            if (regex_match(s, regex("(loadmap )(.*)"))){ 
                 this->effect = "Load map from file, transition to maploaded state.";
             }
             if (s == "validatemap"){
                 this->effect = "Validate map, transition to mapvalidated state.";
             }
-            if (s == "addplayer_*"){ //TODO: replace * with regex 
+            if (regex_match(s, regex("(addplayer )(.*)"))){
                 this->effect = "Adds a player, transition to playersadded state.";
             }
             if (s == "gamestart"){
@@ -84,7 +86,7 @@ using namespace std;
             if (s == "quit"){
                 this->effect = "Quit game, exit program.";
             }
-            if (s != "loadmap_*" && s != "validatemap" && s != "addplayer_*" && s != "gamestart" && s != "replay" && s != "quit"){
+            if (!(regex_match(s, regex("(loadmap )(.*)"))) && s != "validatemap" && !(regex_match(s, regex("(addplayer )(.*)"))) && s != "gamestart" && s != "replay" && s != "quit"){
                 //case of invalid input should save a record of this in the effect variable
                 this->effect = "Invalid command entered. No effect on game.";
             }
