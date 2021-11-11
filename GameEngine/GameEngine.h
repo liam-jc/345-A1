@@ -1,15 +1,21 @@
+#ifndef GameEngine_h
+#define GameEngine_h
+
 #pragma once
 
 #include "CommandProcessing.h"
+#include "Map.h"
 #include <iostream>
 #include <cstdlib>
 #include <string>
 #include <vector>
 #include <random>
+#include <regex>
 
 using namespace std;
 //all class we have
 class Map;
+class MapLoader;
 class Player;
 class Card;
 class Orders;
@@ -30,6 +36,8 @@ class GameEngine{
     friend std::ostream& operator<<(std::ostream& stream, const GameEngine& g);
     std::string input;
     int state;
+    // friend int getState();
+    friend class CommandProcessing; //to allow CommandProcessing access to GameEngine state
     /*
     * state 0 = Start();
     *       1 = MapLoaded();
@@ -54,7 +62,8 @@ class GameEngine{
     void Loop();
 
     //Assignment 2:
-    void startupPhase();
+    void StartUpPhase();
 
 };
- 
+
+#endif
