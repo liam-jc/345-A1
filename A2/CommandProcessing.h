@@ -12,7 +12,7 @@
 using namespace std;
 
 // class GameEngine;
-class Command;
+class Command; //forward declaration for use in CommandProcessor
 class CommandProcessor{
     private:      
         // readCommand: 
