@@ -3,7 +3,7 @@
 
 int main(){
     GameEngine GE;
-    GE.Loop();
+    GE.StartUpPhase();
 
     return 0;
 }
