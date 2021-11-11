@@ -1,43 +1,44 @@
-#include "Map.h"
+// #pragma once
 #include <iostream>
 #include<fstream>
 #include <vector>
 #include<cstdlib>
 #include<string>
 #include <sstream>
+#include "Map.h"
 using namespace std;
 
 
 // function of player class
-Player::Player(string x, int y){
-    this->playerName=x;
-    this->playerID=y;
-}
+// Player::Player(string x, int y){
+//     this->playerName=x;
+//     this->playerID=y;
+// }
 
-Player::Player(){
-    this->playerName="No name";
-}
+// Player::Player(){
+//     this->playerName="No name";
+// }
 
-string Player:: getPName(){
-    return playerName;
-}
+// string Player:: getPName(){
+//     return playerName;
+// }
 
-void Player::setPName(string x){
-    this->playerName=x;
-}
+// void Player::setPName(string x){
+//     this->playerName=x;
+// }
 
-string Player::toString(){
-  string x= "Player Name: "+this->playerName+"  ID:" +std::to_string(this->playerID);
-  return x;
-}
+// string Player::toString(){
+//   string x= "Player Name: "+this->playerName+"  ID:" +std::to_string(this->playerID);
+//   return x;
+// }
 
 // method of Territory class
 
-Territory::Territory(int id,string name,vector<Territory*> edges, Player owner, int soliders){
+Territory::Territory(int id,string name,vector<Territory*> edges, int soliders){
     this->territoryID=id;
     this->territoryName=name;
     this->edges=edges; // not sure
-    this->owner=owner;
+    // this->owner=owner;
     this->numberOfSolider=soliders;
 }
 
@@ -72,9 +73,9 @@ vector<Territory*> Territory:: getEdges(){
     return edges;
 }
 
-Player Territory:: getPlayer(){
-    return owner;
-}
+// Player Territory:: getPlayer(){
+//     return owner;
+// }
 
 void Territory::setEdges(Territory*x){
     //Territory* p=&x;
@@ -87,7 +88,7 @@ void Territory::setEdges(Territory*x){
 }
 
 string Territory::toString(){
-    string x= "Territory ID:"+std::to_string (territoryID)+ " || Territory Name: "+territoryName+"\nOwner: "+ owner.getPName()
+    string x= "Territory ID:"+std::to_string (territoryID)+ " || Territory Name: "+territoryName
               +"  -> Number of soliders: "+ std::to_string(numberOfSolider);
     return x;
 }
