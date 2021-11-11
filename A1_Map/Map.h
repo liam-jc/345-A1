@@ -1,52 +1,54 @@
 #ifndef Map_h
 #define Map_h
 
+#pragma once
 #include <iostream>
 #include <string>
 #include <vector>
 #include<fstream>
 #include<cstdlib>
+// #include "Player.h"
 using namespace std;
 
 
 //dummy class
-class Player{
-    public:
-        Player(string x,int y);
-        Player();
+// class Player{
+//     public:
+//         Player(string x,int y);
+//         Player();
 
-        string playerName;
-        int playerID;
+//         string playerName;
+//         int playerID;
 
-        string getPName();
-        void setPName(string x);
-        string toString();
-};
+//         string getPName();
+//         void setPName(string x);
+//         string toString();
+// };
 
 class Territory{
     public:
     //Class variables
         int numberOfSolider;
-        Player owner;
+        // Player owner; //Player class contains list of territories
         int territoryID;
         string territoryName;
         vector<Territory*> edges; //Most important one
     
     //Constructors
-        Territory(int id,string name,vector<Territory*> edges, Player owner, int soliders);
+        Territory(int id,string name,vector<Territory*> edges, int soliders);
         Territory();
         Territory(int id,string name);
 
     //Get methods
         int getSoliders();
-        Player getPlayer();
+        // Player getPlayer();
         int getID();
         string getName();
         vector<Territory*> getEdges();
 
     //Mutators
         void setSoliders(int x);
-        void setPlayer(Player x);
+        // void setPlayer(Player x);
         void setName(string x);
         void setEdges(Territory* x);
 
