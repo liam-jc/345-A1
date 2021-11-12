@@ -4,6 +4,7 @@
 #pragma once
 
 #include "CommandProcessing.h"
+#include "Player.h"
 #include "Map.h"
 #include <iostream>
 #include <cstdlib>
@@ -64,6 +65,8 @@ class GameEngine{
     //Assignment 2:
     void StartUpPhase();
     Map mainMap;
+    vector <Player> Players;
+    Deck gameDeck;
     
 
 };

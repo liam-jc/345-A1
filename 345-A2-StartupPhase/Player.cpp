@@ -65,3 +65,7 @@ void Player::issueOrder(string orderToAdd){ //creates an Order object and puts i
 	this->orders->addOrder(newOrder);
 };
 
+void Player::setTerritories(Territory x){
+	this->territories.push_back(new Territory (x));
+};
+

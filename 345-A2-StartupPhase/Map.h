@@ -38,6 +38,8 @@ class Territory{
         Territory(int id,string name,vector<Territory*> edges, int soliders);
         Territory();
         Territory(int id,string name);
+        //Copy constructor
+        Territory(const Territory &p1);
 
     //Get methods
         int getSoliders();
@@ -50,13 +52,14 @@ class Territory{
         void setSoliders(int x);
         // void setPlayer(Player x);
         void setName(string x);
-        void setEdges(Territory* x);
+        void setEdges(Territory x);
 
     // ToString
         string toString();
 
     // Method to show all the edges
         string showEdges();
+    
 };
 
 class Continent{

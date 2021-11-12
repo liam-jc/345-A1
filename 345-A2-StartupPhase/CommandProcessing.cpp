@@ -21,7 +21,7 @@ using namespace std;
 
         void CommandProcessor::readCommand(){
             cout << "Please input a command." << endl;
-            //cin.ignore(); //needed to use cin in getline() after using "cin <<" previously
+            cin.ignore(); //needed to use cin in getline() after using "cin <<" previously
             getline(cin, commandStr); //to include whitespace in string
             cout << "commandStr is: " << commandStr << endl;
             saveCommand(commandStr);

@@ -13,11 +13,11 @@ using namespace std;
 
 class Player {
 private:
-	vector<Territory*> territories;
 	OrdersList* orders;
 	
 
 public:
+	vector<Territory*> territories;
 	string name;
 	Hand* hand;
 
@@ -36,6 +36,7 @@ public:
 	vector<Territory*> toAttack();
 	vector<Territory*> toDefend();
 	void issueOrder(string orderToAdd);
+	void setTerritories(Territory x);
 };
 
 #endif

@@ -56,6 +56,13 @@ Territory:: Territory(int id,string name){
     this->edges; // not sure
 }
 
+Territory::Territory(const Territory& e){
+    this->territoryID = *new int (e.territoryID);
+    this->territoryName =* new string(e.territoryName);
+    this->edges= *new vector<Territory*> (e.edges);
+    this->numberOfSolider= *new int(e.numberOfSolider);
+}
+
 // getMethod
 int Territory:: getID(){
     return territoryID;
@@ -77,10 +84,10 @@ vector<Territory*> Territory:: getEdges(){
 //     return owner;
 // }
 
-void Territory::setEdges(Territory*x){
+void Territory::setEdges(Territory x){
     //Territory* p=&x;
     //cout<< (*p).getName()<<endl;
-    edges.push_back(x);     
+    edges.push_back(new Territory(x));     
      /*for(int i=0;i< edges.size();i++){
         cout<< (*edges[i]).getName()<<endl;
      }*/
@@ -209,7 +216,7 @@ MapLoader::MapLoader(string x){
     vector<Continent> continents;
     vector<Territory> territories;
     vector<string> lines;
-    vector<Territory*> pointers;
+    //vector<Territory*> pointers;
     ifstream fileStream;
     fileStream.open(x);
 
@@ -282,10 +289,10 @@ MapLoader::MapLoader(string x){
                 int tID=stoi(arr[0]);
                 string TName=arr[1];
                 int continentID=stoi(arr[2]);
-                Territory* t= new Territory(tID,TName);
-                territories.push_back(*t);
-                continents[continentID-1].setTerritories(*t);
-                pointers.push_back(t);
+                Territory t= Territory(tID,TName);
+                territories.push_back(t);
+                continents[continentID-1].setTerritories(t);
+                //pointers.push_back(t);
             }
         }
 
@@ -299,13 +306,16 @@ MapLoader::MapLoader(string x){
            
             for(int j=1;j<boarders_info.size();j++){
                 //cout<<boarders_info[j]<<endl; debug helper
-                territories[stoi(boarders_info[0])-1].setEdges(pointers[stoi(boarders_info[j])-1]);
+                //territories[stoi(boarders_info[0])-1].setEdges(pointers[stoi(boarders_info[j])-1]);
+                territories[stoi(boarders_info[0])-1].setEdges(territories[stoi(boarders_info[j])-1]);
             }
+
         }  
     }
 
     Map m= Map(nameWorld,territories,continents);
     this->mainMap=m;
+     
 }
 
 Map MapLoader::returnMap(){
