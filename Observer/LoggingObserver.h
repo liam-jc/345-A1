@@ -15,16 +15,24 @@ class Subject {
 public:
 	virtual void Attach(Observer* o);
 	virtual void Detach(Observer* o);
-	virtual void Notify(Ilogable&);
+	virtual void Notify(Ilogable &);
 	Subject();
+	Subject(const Subject&);
 	~Subject();
 private:
 	list<Observer*>* _observers;
 };
 
-class LogObserver {
-	void Update(Ilogable&);
+class LogObserver : public Observer {
+public:
+	void Update(Ilogable &);
 	LogObserver();
+	LogObserver(Subject* s);
+	LogObserver(list<Subject*>*);
+	LogObserver(const LogObserver&);
+	~LogObserver();
+	Subject* _subject;
+	list<Subject*>* _subjectList;
 
 };
 
