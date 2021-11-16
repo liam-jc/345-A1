@@ -112,9 +112,20 @@ using namespace std;
             randomCardNumber = dist(mt);
             // cout << "randomCardNumber is " << randomCardNumber << endl; //for debugging
             Card toReturn; 
-            toReturn.typeOfCard = deckOfCards.at(randomCardNumber).typeOfCard; //draw random card
-            cout << "\nUsing Deck::draw(), " << toReturn.typeOfCard << " Card drawn from deck." << endl;
-            deckOfCards.erase( std::next(deckOfCards.begin(), randomCardNumber)); //erase drawn card from deck
+            if (deckOfCards.size()==0){ //special case where no cards remain in deck
+                cout << "Deck is empty! No card drawn." << endl;
+                // toReturn = NULL;
+                return toReturn;
+            }
+            if (deckOfCards.size()==1){ //special case where only 1 card remains in deck
+                toReturn.typeOfCard = deckOfCards.at(0).typeOfCard; //draw last remaining card
+                deckOfCards.clear(); //erase drawn card from deck
+            }
+            if (deckOfCards.size()>1){ 
+                toReturn.typeOfCard = deckOfCards.at(randomCardNumber).typeOfCard; //draw random card
+                deckOfCards.erase( std::next(deckOfCards.begin(), randomCardNumber)); //erase drawn card from deck
+            }
+            cout << "\nUsing Deck::draw(), " << toReturn.typeOfCard << " Card drawn from deck." << endl;        
             return toReturn;
         };
        
